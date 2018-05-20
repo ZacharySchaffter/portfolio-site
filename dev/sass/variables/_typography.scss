@@ -1,0 +1,26 @@
+//Typekit font
+@import url("https://use.typekit.net/zaf6yjg.css");
+
+body {
+    font-family: "soleil", helvetica, sans-serif;
+    font-size:16px; //default font size
+}
+
+h1, h2, h3 {
+    font-family: "alternate-gothic-no-3-d", sans-serif;
+    font-weight:700;
+}
+
+h1 {
+    font-size:5rem;
+}
+
+h2 {
+    font-size:4rem;
+    color:$mdBlue;
+};
+
+h3 {
+    font-size:2rem;
+}
+

@@ -1,0 +1,95 @@
+html {
+    height:100%;
+}
+
+body {
+    height:100%;
+    position:relative;
+}
+
+* {
+    box-sizing:border-box;
+}
+
+#app {
+    height:100%;
+}
+
+.container {position:relative;}
+
+.animate-in {   
+    * {
+        transition:transform 1s ease, opacity 1.5s ease;
+        transform:translateY(0);
+        opacity:1;
+
+        &.invisible {
+           transform:translateY(-1em);
+           opacity:0;
+        }
+    }
+}
+
+
+#about {
+    display:block;
+    height:600px;
+    background-color:#FFF;
+    &:before {
+        content:"";
+        height:20px;
+        background-color:#FFF;
+        bottom:100%;
+        position:absolute;
+        width:100%;
+    }
+}
+
+#work {
+    position:relative;
+    padding-top:200px;
+    background-color:#FFF;
+    margin-bottom:200px;
+    z-index:3;
+
+    &:before {
+        content:"";
+        height:20px;
+        background-color:#FFF;
+        bottom:100%;
+        position:absolute;
+        width:100%;
+    }
+    
+    .container {
+        padding-top:8rem;
+        padding-bottom:5rem;
+    }
+
+    h2 {
+        font-size:6rem;
+        position:absolute;
+        right:20%;
+        top:0;
+    }
+
+    &:after {
+        position:absolute;
+        content:"";
+        height:150px;
+        width:100%;
+        background-image:url('../img/cloud-bottom-border.svg');
+        background-repeat:repeat-x;
+        background-position:top center;
+        left:0;
+        top:calc(100% - 2px);
+    }
+}
+
+#social {
+    position:relative;
+    z-index:2;
+    margin-top:-200px;
+    background-color:$skyLt; //radial-gradient(circle at 0 0, lighten($skyLt, 15%), $skyLt 20%, $skyDk);
+    padding:150px 0 300px;
+}

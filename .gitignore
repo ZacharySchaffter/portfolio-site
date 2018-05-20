@@ -1,0 +1,7 @@
+.DS_Store
+.babelrc
+mockups/
+portfolio.sublime*
+thumbs.db
+*.log
+node_modules/
