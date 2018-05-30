@@ -1,17 +1,26 @@
 .hero {
-    position:fixed;
-    background-color:$skyMd;
-    background-image:url('../img/mountains.svg'), radial-gradient(circle at 0 0, lighten($skyLt, 15%), $skyLt 20%, $skyDk);
-    background-size:cover, cover;
-    background-position:center bottom, 0 0;
-    height:100%;
+    //position:fixed;
+    //background-color:$skyMd;
+    background-image: //linear-gradient(to bottom, transparentize(#3d5f8e, .1), #0e365c 90%), 
+    radial-gradient(ellipse 100% 150% at center bottom, $mdBlue, $dkBlue 80%);
+                       //radial-gradient(ellipse 100% 150% at center bottom, transparent 80%, #484848 80%),
+                       //radial-gradient(ellipse 100% 150% at center bottom 5%, transparent 70%, #8f8f8f 70%),
+                       //radial-gradient(ellipse 100% 150% at center bottom 10%, #b2b2b2, #b2b2b2 64%);
+    //background-color: $dkBlue;
+    //background-image: radial-gradient(ellipse at center -50%, $mdBlue 0%, darken($mdBlue, 15%) 50%,$dkBlue 100%);
+                       
+    background-size:cover;
+    background-position:center bottom;
+    height:103%;
     padding:3em;
     perspective:500px;
     z-index:1;
+    overflow:hidden;
 }
 
 .hero__spacer {
-    height:100%;
+    display:none;
+    height:103%;
     position:relative;
     z-index:0;
 }
@@ -19,7 +28,7 @@
     position:relative;
     top:25%;
     transform-origin:50% 100%;
-
+    z-index:3;
 }
 
 .hero__logo {
@@ -28,30 +37,51 @@
 
     img {
         width:100%;
-        max-width:250px;
+        max-width:220px;
     }
 }
 $borderWidth : 5px; 
 .hero__text {
     width:100%;
-    max-width:800px;
+    max-width:600px;
     position:relative;
     margin:0 auto;
     text-align:center;
     color:#FFF;
+    z-index:5;
 
     h1 {
         //overwrite the font-family in variables/fonts
         font-family:'soleil', helvetica, sans-serif;
-        font-size:50px;
-        font-size:3rem;
-        font-weight:600;
+        font-size:45px;
+        margin-top:.25em;
+        font-size:2.75rem;
+        font-weight:700;
         text-transform:uppercase;
 
         small {
-            font-size:35px;
-            font-size:2rem;
-            font-weight:400;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin-top:.5em;
+            font-size:32px;
+            font-size:1.8rem;
+            font-weight:500;
+
+            span {
+                flex: 1 1 0;
+                opacity:0.6;
+                letter-spacing:1px;
+            }
+
+            span.divider {
+                flex: 0 0 1em;
+                font-size:1.25em;
+                font-weight:500;
+                opacity:1;
+            }
+            span:first-child {text-align:right;}
+            span:last-child {text-align:left;}
         }
     }
 
@@ -82,63 +112,72 @@ $borderWidth : 5px;
     }
 }
 
-.cloud {
+#stars {
     position:absolute;
-    bottom:0;
-    left:0;
-    width:200%;
-
-    &-foreground {
-        height:20%;
-        background-image:url('../img/cloud-test.svg');
-        background-repeat:repeat-x;
-        background-position:-1px 0;
-    }
-    
+    width:2000px; 
+    height:2000px;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    animation:rotate 200s infinite forwards;
 }
 
+#stars circle:nth-child(3n),
+#stars circle:nth-child(7n),
+#stars circle:nth-child(9n) {
+    //animation: twinkletwinkle 3s infinite;
+}
+
+#stars circle:nth-child(4n),
+#stars circle:nth-child(8n),
+#stars circle:nth-child(11n) {
+    //animation: twinkletwinkle 3s infinite 2s;
+}
+
+@keyFrames twinkletwinkle {
+    0% {
+        opacity:0.1;
+    }
+
+    50% {
+        opacity:1;
+    }
 
 
-#fg-clouds,
-#bg-clouds1,
-#bg-clouds2 {
+    100% {
+        opacity:0.1;
+    }
+}
+
+#fg-cloud,
+#bg-cloud-1,
+#bg-cloud-2 {
   position:absolute; 
   left:0;
   bottom:0;
   width:100%;
+  overflow:hidden;
 }
 
-#fg-clouds {
-  height:200px; 
+#fg-cloud {
+  height:100%
 }
 
-.fg-clouds-wrap {
-    height: 20%;    
-}
-
-#bg-clouds1 {
-  height:28%;
-  max-height:600px;
-  min-height:160px;
+#bg-cloud-1 {
+    height:100%;
 }
 
 /*.bg-clouds1-wrap {
     height: 28%;    
 }*/
 
-#bg-clouds2 {
-  height:32%;
-  max-height:650px;
-  min-height:170px;
+#bg-cloud-2 {
+    height:100%;
 }
 
 /*.bg-clouds2-wrap {
     height: 32%;
 }*/
 
-svg {width:100%; height:100%; stroke-opacity:0;}
-#windFrame {position:absolute;top:0;left:0;width:100%;height:100%; stroke-opacity:1;}
+svg {width:100%; height:100%;}
 
-#fg-clouds svg {fill:#FFF;}
-#bg-clouds1 svg {fill:#FFF; opacity:0.5}
-#bg-clouds2 svg {fill:#FFF; opacity:0.5}

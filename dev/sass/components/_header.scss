@@ -10,7 +10,10 @@ header {
         position:absolute;
         width:200%;
         height:100%;
-        background-image:linear-gradient(to right, transparent 20%, darken($blue, 8%) 50%);
+        left:0;
+        top:0;
+        background-image:linear-gradient(to right, transparent 20%, $mdBlue 50%);
+        
         transform:translateX(0);
         transition:transform 500ms ease;
     }
@@ -45,7 +48,7 @@ header {
             text-decoration:none;
 
             &:hover {
-                background-color:darken($blue, 10%);
+                background-color:transparentize($ltBlue, 0.95);
             }
         }
     }

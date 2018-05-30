@@ -1,62 +1,51 @@
-const Cloud = require('./cloudBuilder');
+const Line = require('./cloudBuilder');
 
-//define cloud borders
-let cloud1 = new Cloud("fg-clouds", 125, 125, 140, "#FFF", 1.2);
-let cloud2 = new Cloud("bg-clouds1", 70, 125, 60, "#CCC", .8);
-let cloud3 = new Cloud("bg-clouds2", 50, 100, 20, "#FFF", 0.1);
+//Id of the svg element to draw in, the width in % between points, an array containing the varying original heights of the points (in fractions of an integer), and the curvature of the points in pixels.
+//id of the svg, the number of points, the curvature, the height array, the force distance, and the svg properties
+let fgCloudProps = {
+  fill : "#FFF",
+  stroke: "rgba(255,255,255,0.8)",
+  "stroke-width": 4
+}
+let bgCloudProps = {
+  fill : "rgba(255,255,255,0.4)",
+  stroke: "rgba(255,255,255,0.5)",
+  "stroke-width": 3
+}
+let bgCloud2Props = {
+  fill : "rgba(255,255,255,0.3)",
+  stroke: "rgba(255,255,255,0.35)",
+  "stroke-width": 2
+}
+let fgCloud = new Line("fg-cloud", 150, 20, [0.775, 0.8], 300, fgCloudProps);
+let bgCloud = new Line("bg-cloud-1", 120, 30, [0.69, 0.75], 300, bgCloudProps);
+let bgCloud2 = new Line("bg-cloud-2", 100, 35, [0.676, 0.7], 300, bgCloud2Props);
 
-//draw clouds (also handles the animations)
-cloud1.draw();
-cloud2.draw();
-cloud3.draw();
+fgCloud.init();
+bgCloud.init();
+bgCloud2.init();
 
-let createWindLine = require('./wind');
 
-let windObj1 = {
-  heightRange:60,
-  segmentWidth: {
-    min: 300,
-    max: 400
-  },
-  dashSize : 20,
-  dashOffset: 10,
-  dashesMin : 13,
-  dashesMax : 18,
-  strokeWidth: 6,
-  strokeOpacity:0.5
-};
+//contact form submission stuff
+let popupNode = document.querySelector(".popup__wrap");
+let body = document.body;
+let popupVisibleClass = "popup-is-visible"
 
-let windObj2 = {
-  heightRange:60,
-  segmentWidth: {
-    min: 120,
-    max: 200
-  },
-  dashSize : 15,
-  dashOffset: 10,
-  dashesMin : 10,
-  dashesMax : 13,
-  strokeWidth: 5,
-  strokeOpacity:0.4
-};
+//Stardrawing
+var drawStars = require('./stars');
 
-let windObj3 = {
-  heightRange:60,
-  segmentWidth: {
-    min: 120,
-    max: 200
-  },
-  dashSize : 15,
-  dashOffset: 5,
-  dashesMin : 10,
-  dashesMax : 13,
-  strokeWidth: 4,
-  strokeOpacity:0.2
-};
+//draw the stars
+drawStars("stars", 300, 1, 4);
 
-createWindLine(windObj1);
-createWindLine(windObj2);
-createWindLine(windObj3);
+//
+
+var request = require('request');
+/*request('http://www.google.com', function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  console.log('body:', body); // Print the HTML for the Google homepage.
+});*/
+
 
 //parallax scrolling
 let scrollPos = 0;
@@ -65,7 +54,9 @@ const parallaxElements = document.querySelectorAll(".scroll");
 
 const siteHeader = document.querySelector('.site-header');
 
+
 window.addEventListener('scroll', function(e) {
+
     scrollPos = window.scrollY;
     
     if (parallaxElements) {
@@ -75,7 +66,8 @@ window.addEventListener('scroll', function(e) {
             //handle translating
             if (el.dataset.scrollSpeed) {
                 let scrollSpeed = Number(el.dataset.scrollSpeed);
-                let parallaxPos = -(scrollPos)*scrollSpeed;
+                let parallaxPos = (-(scrollPos)*scrollSpeed).toFixed(0);
+                console.log(parallaxPos);
                 transformProps += "translateY("+parallaxPos+"px) ";
             }
 
@@ -83,7 +75,7 @@ window.addEventListener('scroll', function(e) {
                 let rotation = Number(scrollPos*el.dataset.scrollRotate);
                 let maxRotation = Number(el.dataset.scrollMaxRotate);
 
-                let actualRotation = rotation < maxRotation ? rotation : maxRotation;
+                let actualRotation = rotation < maxRotation ? (rotation).toFixed(0) : maxRotation;
                 transformProps += "rotateX("+actualRotation+"deg) ";
 
 

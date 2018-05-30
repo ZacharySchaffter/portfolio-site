@@ -1,23 +1,74 @@
+.projects {
+    padding-top:8rem;
+    padding-bottom:5rem;
+    overflow:hidden;
+    position:relative;
+
+    &:before {
+        content:"";
+        height:75%;
+        width:110%;
+        position:absolute;
+        top:12.5%;
+        left:-5%;
+        background-color:$ltGray;
+        box-shadow:inset 0px 0px 100px transparentize($ltBlue, 0.5);
+        transform-origin:50% 50%;
+        transform:rotate(5deg);
+    }
+    
+}
+
 .project {
+    @extend .container;
     display:flex;
 
     align-items:flex-start;
     position:relative;
-    margin-bottom:2em;
+    margin-bottom:4em;
 
 }
 
 .project__thumbnail {
     border-radius:4px;
-    border:3px solid $ltBlue;
+    box-shadow:1px 1px 4px $ltBlue;
+    border:10px solid #FFF;
     flex:3;
     position:relative; 
+    border-radius:4px;
     z-index:5;
+    overflow:hidden;
 
     background-color:#FFF;
     
     width:100%;
-    height:350px;
+    //height:350px;
+    transition:all 200ms ease;
+
+    img {
+        width:100%;
+        height:auto;
+        position:relative;
+        
+    }
+
+    &:after {
+        content:"";
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+        box-shadow:inset 0px 0px 15px rgba(0,0,0,0.2);
+        transition:box-shadow 200ms ease;
+    }
+
+    &:hover{
+        -webkit-filter:contrast(1.05);
+        &:after {
+            box-shadow:inset 0px 0px 18px rgba(0,0,0,0.25);
+        }
+    }
 
 }
 
@@ -26,12 +77,16 @@
     position:relative;
     margin:2em;
 
+    @media only screen and (max-width:750px){
+        display:none;
+    }
+
     .project__title {
-        font-size:1.5rem;
-        margin:.5em 0 1em;
-        padding-bottom:1em;
+        font-size:2.5rem;
+        font-weight:500;
+        padding-bottom:.5em;
         color:$dkViolet;
-        font-family: "soleil", helvetica, sans-serif;
+        font-family: $fontStack-headings;;
         
 
         &:before {
@@ -47,18 +102,21 @@
 
     .project__description {
         font-size:1rem;
-        line-height:1.4;
+        line-height:1.6;
         font-weight:500;
+        padding:1.5em 0;
+        color:$dkViolet;
     }
 
     .project__button {
         display:inline-block;
-        margin:2em 0 1em;
+        margin:0 0 1em;
         padding:1em 2em;
-        border:1px solid $mdBlue;
-        color:$dkViolet;
+        border:1px solid lighten($dkBlue,25%);
+        color:$dkBlue;
         border-radius:3em;
         text-decoration:none;
+        background-color:#FFF;
         transition:background-color 150ms ease;
 
         &:hover {

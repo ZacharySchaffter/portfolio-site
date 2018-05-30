@@ -1,0 +1,3 @@
+body.popup-is-visible{height:100%;overflow:hidden}.popup__wrap{display:none;width:100%;height:100%;position:fixed;overflow:scroll;align-items:center;justify-content:center}.popup-is-visible .popup__wrap{display:flex}.popup{position:relative;width:90%;max-width:700px;opacity:0;transition:150ms opacity ease 100ms}.popup-is-visible .popup,.popup-is-visible .popup__overlay{opacity:1}.popup__overlay{position:fixed;width:100%;opacity:0;transition:150ms opacity ease 100ms}
+
+/*# sourceMappingURL=../sass/maps/components/popup.css.map */

@@ -1,13 +1,16 @@
 //Typekit font
 @import url("https://use.typekit.net/zaf6yjg.css");
 
+$fontStack-copy :  "soleil", helvetica, sans-serif;
+$fontStack-headings:  "alternate-gothic-no-3-d", sans-serif;
+
 body {
-    font-family: "soleil", helvetica, sans-serif;
+    font-family: $fontStack-copy;
     font-size:16px; //default font size
 }
 
 h1, h2, h3 {
-    font-family: "alternate-gothic-no-3-d", sans-serif;
+    font-family: $fontStack-headings;
     font-weight:700;
 }
 
@@ -16,8 +19,11 @@ h1 {
 }
 
 h2 {
-    font-size:4rem;
-    color:$mdBlue;
+    font-size:5rem;
+    color:$blueGray;
+    font-weight:500;
+    letter-spacing:1px;
+    text-transform:uppercase;
 };
 
 h3 {
