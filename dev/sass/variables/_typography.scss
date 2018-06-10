@@ -24,6 +24,15 @@ h2 {
     font-weight:500;
     letter-spacing:1px;
     text-transform:uppercase;
+    transition:font-size 200ms ease;
+
+    @media only screen and (max-width:700px){
+        font-size:4rem;
+    }
+
+    @media only screen and (max-width:600px){
+        font-size:3rem;
+    }
 };
 
 h3 {

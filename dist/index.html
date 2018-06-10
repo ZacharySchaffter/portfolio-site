@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <meta charset='utf-8'>
     <title>Zachary Schaffter - Designer/Developer</title>
     <link rel="stylesheet" href="./css/styles.css">
@@ -51,7 +53,13 @@
         
         <div class="projects animate-in">
             <div class="project">
-                <a class="project__thumbnail" href="https://www.opers.org"><img src="./img/projects/opers.jpg" alt="OPERS.org"></a>
+                <div class="project__image">
+                    <a class="project__thumbnail" href="https://www.opers.org"><img src="./img/projects/opers.jpg" alt="OPERS.org"></a>
+                    <div class="project__tags">
+                        <span>Website</span>
+                        <span>AngularJS</span>
+                    </div>
+                </div>
                 <div class="project__content">
                     <h3 class="project__title">OPERS</h3>
                     <div class="project__description">I developed the website for the Ohio public employees pension fund.</div>
@@ -59,7 +67,14 @@
                 </div>
             </div>
             <div class="project">
-                <a class="project__thumbnail" href="http://www.pixelement.com"><img src="./img/projects/pixelement.jpg" alt="PixElement.com"></a>
+                <div class="project__image">
+                    <a class="project__thumbnail" href="http://www.pixelement.com"><img src="./img/projects/pixelement.jpg" alt="PixElement.com"></a>
+                    <div class="project__tags">
+                        <span>Website</span>
+                        <span>HTML5 Video</span>
+                    </div>
+                </div>
+                
                 <div class="project__content">
                     <h3 class="project__title">PixElement</h3>
                     <div class="project__description">A marketing site for a drone-based photogrammetry company.</div>
@@ -67,7 +82,14 @@
                 </div>
             </div> 
             <div class="project">
-                <a class="project__thumbnail" href="https://www.barshieldusa.com"><img src="./img/projects/barshield.jpg" alt="BarShield USA"></a>
+                <div class="project__image">
+                    <a class="project__thumbnail" href="https://www.barshieldusa.com"><img src="./img/projects/barshield.jpg" alt="BarShield USA"></a>
+                    <div class="project__tags">
+                        <span>Logo/Branding</span>
+                        <span>Packaging Design</span>
+                    </div>
+                </div>
+                
                 <div class="project__content">
                     <h3 class="project__title">BarShield</h3>
                     <div class="project__description">I designed the logo and packaging design for BarShield USA.</div>
@@ -75,7 +97,14 @@
                 </div>
             </div>           
             <div class="project">
-                <a class="project__thumbnail" href="https://www.opers.org/financial-wellness/retirement-gap/"><img src="./img/projects/financial-wellness-calculator.jpg" alt="Financial Wellness Calculator"></a>
+                <div class="project__image">
+                    <a class="project__thumbnail" href="https://www.opers.org/financial-wellness/retirement-gap/"><img src="./img/projects/financial-wellness-calculator.jpg" alt="Financial Wellness Calculator"></a>
+                    <div class="project__tags">
+                        <span>Application</span>
+                        <span>AngularJS</span>
+                    </div>
+                </div>
+                
                 <div class="project__content">
                     <h3 class="project__title">Financial Wellness Calculator</h3>
                     <div class="project__description">OPERS began shifting into financial wellness in 2017, so I developed a calculator for one of their first modules, ‘Bridging the Gap to Financial Wellness’.</div>
@@ -84,7 +113,14 @@
             </div>
 
             <div class="project">
-                <a class="project__thumbnail" href="https://www.opers.org/financial/pafr/2016/"><img src="./img/projects/data-visualizations.jpg" alt="OPERS.org annual financial report"></a>
+                <div class="project__image">
+                    <a class="project__thumbnail" href="https://www.opers.org/financial/pafr/2016/"><img src="./img/projects/data-visualizations.jpg" alt="OPERS.org annual financial report"></a>
+                    <div class="project__tags">
+                        <span>Data Visualization</span>
+                        <span>SVG</span>
+                    </div>
+                </div>
+                
                 <div class="project__content">
                     <h3 class="project__title">Data Visualizations</h3>
                     <div class="project__description">I developed interactive data visualizations for OPERS’ annual financial reports.</div>
@@ -114,7 +150,7 @@
         </section>
     </main>
 
-    <section id="contact" class="bottom">
+    <section id="contact" class="bottom" style="display:none;">
         <h2>Say hello.</h2>
         <p>Wanna chat? <a href="#">Send me a message</a>.</p>
     </section>

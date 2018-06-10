@@ -16,6 +16,11 @@
     perspective:500px;
     z-index:1;
     overflow:hidden;
+
+ 
+    @media only screen and (max-height:800px){
+        height:120%;
+    }
 }
 
 .hero__spacer {
@@ -29,6 +34,12 @@
     top:25%;
     transform-origin:50% 100%;
     z-index:3;
+    transition:all 200ms ease;
+
+    @media only screen and (max-height:750px) {
+        top:15%;
+    }
+
 }
 
 .hero__logo {
@@ -36,8 +47,9 @@
     text-align:center;
 
     img {
-        width:100%;
+        width:50%;
         max-width:220px;
+        min-width:120px;
     }
 }
 $borderWidth : 5px; 
@@ -50,12 +62,13 @@ $borderWidth : 5px;
     color:#FFF;
     z-index:5;
 
+   
+
     h1 {
         //overwrite the font-family in variables/fonts
         font-family:'soleil', helvetica, sans-serif;
         font-size:45px;
         margin-top:.25em;
-        font-size:2.75rem;
         font-weight:700;
         text-transform:uppercase;
 
@@ -65,7 +78,6 @@ $borderWidth : 5px;
             justify-content:center;
             margin-top:.5em;
             font-size:32px;
-            font-size:1.8rem;
             font-weight:500;
 
             span {
@@ -82,6 +94,13 @@ $borderWidth : 5px;
             }
             span:first-child {text-align:right;}
             span:last-child {text-align:left;}
+        }
+    }
+
+     @media only screen and (max-width:700px){
+        h1 {font-size:35px;}
+        h1 small {
+            font-size:24px;
         }
     }
 
