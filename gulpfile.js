@@ -5,7 +5,6 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-//var babel = require('gulp-babel');
 var imagemin = require('gulp-imagemin');
 
 var babelify = require('babelify');
@@ -45,17 +44,7 @@ gulp.task('css', function() {
     .on('error', exceptionLog);
 });
 
-//JS job
-/*gulp.task('js', function() {
-    return gulp.src(devJs + 'script.js') //only look at app entry
-    .pipe(babel({
-        presets: ['env']
-    }))
-    .pipe(concat('script.js'))
-    //.pipe(uglify())
-    .pipe(gulp.dest(prodJs))
-    .on('error', exceptionLog);
-});*/
+//JS
 gulp.task('js', function() {
     return browserify({
         entries : devJs+'script.js'
@@ -66,16 +55,12 @@ gulp.task('js', function() {
         .pipe(gulp.dest(prodJs));
 });
 
-
-
-
 //Images 
 gulp.task('images', () =>
     gulp.src(dev + "img/**/*")
         .pipe(imagemin())
         .pipe(gulp.dest(prod+'img/'))
 );
-
 
 gulp.task('watch', function() {
     browserSync.init({
@@ -88,6 +73,5 @@ gulp.task('watch', function() {
     gulp.watch([dev + 'img/*'], ['images']);
     gulp.watch(dev + '**/*').on('change', browserSync.reload);
 });
-
 
 gulp.task('default', ['watch', 'css', 'js', 'images', 'html']);

@@ -1,6 +1,6 @@
 #social-media {
-    margin:100px auto;
-    padding-bottom:200px;
+    margin:100px auto 100px;
+    padding-top:50px;
 }
 
 .social-media__wrap {
@@ -8,6 +8,12 @@
     align-items:center;
     justify-content:space-around;
     flex-wrap:wrap;
+
+    h2 {
+         &:before {
+            transform:translate(-50%, -50%);
+        }
+    }
 }
 
 .social-media__item {

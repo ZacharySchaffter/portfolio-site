@@ -25,6 +25,13 @@ fgCloud.init();
 bgCloud.init();
 bgCloud2.init();
 
+let btmFgCloud = new Line("btm-fg-cloud", 150, 20, [0.775, 0.8], 300, fgCloudProps, true);
+let btmBgCloud = new Line("btm-bg-cloud-1", 120, 30, [0.69, 0.75], 300, bgCloudProps, true);
+let btmBgCloud2 = new Line("btm-bg-cloud-2", 100, 35, [0.676, 0.7], 300, bgCloud2Props, true);
+
+btmFgCloud.init();
+btmBgCloud.init();
+btmBgCloud2.init();
 
 //contact form submission stuff
 let popupNode = document.querySelector(".popup__wrap");

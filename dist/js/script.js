@@ -7,13 +7,13 @@
 //an array containing the varying original heights of the points (in fractions of an integer)
 //Distance in pixels at which the mousecursor affects the points
 //an object of various properties
-function Line(svgId, segmentWidth, curvature, heightArr, sphereOfInfluence, svgAttr) {
+function Line(svgId, segmentWidth, curvature, heightArr, sphereOfInfluence, svgAttr, isStatic) {
   this.svgEl = SVG(svgId); //initialize the svg
   this.svgPath = this.svgEl.path("M0,0");
 
   //Pass the properties to the svgpath
   this.svgPath.attr(svgAttr);
-
+  this.isStatic = isStatic; //boolean, true makes it not interactive
   this.domNode = document.getElementById(svgId);
   this.width = this.domNode.getBoundingClientRect().width;
   this.height = this.domNode.getBoundingClientRect().height;
@@ -34,13 +34,16 @@ function Line(svgId, segmentWidth, curvature, heightArr, sphereOfInfluence, svgA
 Line.prototype.init = function () {
   var obj = this;
   this.createNodes();
+
   //start the animation frames
   window.requestAnimationFrame(this.step.bind(this));
 
-  //bind event handlers
-  document.addEventListener("mousemove", obj.handleMouseMove.bind(obj));
-  document.addEventListener("touchmove", obj.handleTouchMove.bind(obj));
-  document.addEventListener("mouseout", obj.handleMouseOut.bind(obj));
+  if (!this.isStatic) {
+    //bind event handlers
+    document.addEventListener("mousemove", obj.handleMouseMove.bind(obj));
+    document.addEventListener("touchmove", obj.handleTouchMove.bind(obj));
+    document.addEventListener("mouseout", obj.handleMouseOut.bind(obj));
+  }
 
   //resize function, keep it throttled
   (function () {
@@ -133,9 +136,12 @@ Line.prototype.step = function () {
 
   //Request the next animation frame
   this.isAnimating = false;
-  setTimeout(function () {
-    window.requestAnimationFrame(obj.step.bind(obj));
-  }, 15);
+
+  if (!this.isStatic) {
+    setTimeout(function () {
+      window.requestAnimationFrame(obj.step.bind(obj));
+    }, 15);
+  }
 };
 
 Line.prototype.resize = function () {
@@ -282,10 +288,10 @@ Sphere.prototype.animateBackToCenter = function () {
   this.currentX += forceDirection.x * force * 1;
   this.currentY += forceDirection.y * force * 1;
 
-  this.svgEl.attr({
-    cx: this.currentX,
-    cy: this.currentY
-  });
+  /*this.svgEl.attr({
+    cx : this.currentX, 
+    cy : this.currentY
+  })*/
 };
 
 module.exports = Line;
@@ -319,6 +325,14 @@ var bgCloud2 = new Line("bg-cloud-2", 100, 35, [0.676, 0.7], 300, bgCloud2Props)
 fgCloud.init();
 bgCloud.init();
 bgCloud2.init();
+
+var btmFgCloud = new Line("btm-fg-cloud", 150, 20, [0.775, 0.8], 300, fgCloudProps, true);
+var btmBgCloud = new Line("btm-bg-cloud-1", 120, 30, [0.69, 0.75], 300, bgCloudProps, true);
+var btmBgCloud2 = new Line("btm-bg-cloud-2", 100, 35, [0.676, 0.7], 300, bgCloud2Props, true);
+
+btmFgCloud.init();
+btmBgCloud.init();
+btmBgCloud2.init();
 
 //contact form submission stuff
 var popupNode = document.querySelector(".popup__wrap");
