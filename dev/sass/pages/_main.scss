@@ -30,25 +30,6 @@ body {
     }
 }
 
-.scroll {
-    transition:transform 50ms ease;
-}
-
-
-#about {
-    display:block;
-    height:600px;
-    background-color:#FFF;
-    &:before {
-        content:"";
-        height:20px;
-        background-color:#FFF;
-        bottom:100%;
-        position:absolute;
-        width:100%;
-    }
-}
-
 main {
     position:relative;
     padding-top:50px;
@@ -67,7 +48,6 @@ main {
         position:relative;
         text-align: center;
         transform-origin:50% 50%;
-        //transform:translateX(10%) rotate(5deg);
         
         span {
             position:relative;            
@@ -92,10 +72,4 @@ main {
 }
 
 
-footer,
-.footer {
-    background-color:$mdBlue;
-    height:4em;
-    position:relative;
-    //z-index:3;
-}
+

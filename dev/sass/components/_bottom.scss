@@ -1,3 +1,18 @@
+.bottom {
+    background-image: linear-gradient(to bottom, transparent, transparentize($heroLt,0.5) 90%), 
+                          radial-gradient(ellipse 100% 150% at center bottom, $heroLt, $heroDk 80%);
+    background-blend-mode: lighten, normal;   
+    background-size:cover;
+    background-position:center top;
+
+    padding-bottom:250px;
+}
+
+.clouds-bottom {
+    height:300px;
+    position:relative;
+}
+
 #btm-fg-cloud,
 #btm-bg-cloud-1,
 #btm-bg-cloud-2 {
@@ -21,37 +36,3 @@
     height:100%;
 }
 
-//the section underneath the main cloud content area
-.bottom {
-    position:relative;
-    z-index:2;
-    background-color:$dkBlue;
-    background-image: radial-gradient(ellipse 100% 150% at center top -20%, $mdBlue, $dkBlue 80%);
-    padding:300px 0 150px;
-    text-align:center;
-    color:$ltBlue;
-    font-size:22px;
-    
-    .contact-form {
-        z-index:10;
-        position:relative;
-        padding:100px 0;
-        h2 {margin-bottom:.5em;}
-
-        a,
-        a:visited {
-            color: $blueGray;
-            font-weight:700;
-            text-decoration:none;
-
-            border-bottom:1px dashed $blueGray;
-            transition:150ms all ease;
-        }
-
-        a:hover {
-            color:lighten($blueGray,10%);
-            border-color: lighten($blueGray,10%);
-        }    
-    }
-    
-}

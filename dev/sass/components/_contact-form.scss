@@ -1,0 +1,68 @@
+#contact {
+    position:relative;
+    z-index:2;
+    background-color:$heroDk;
+    background-image: radial-gradient(ellipse 100% 150% at center top -20%, $heroLt, $heroDk 80%);
+    padding:300px 0 150px;
+    text-align: center;
+    color:$ltBlue;
+    font-size:22px;
+    
+    .contact-form {
+        z-index:10;
+        position:relative;
+        padding:100px 0;
+        h2 {margin-bottom:.5em;}
+
+        a,
+        a:visited {
+            color: $blueGray;
+            font-weight:700;
+            text-decoration:none;
+
+            border-bottom:1px dashed $blueGray;
+            transition:150ms all ease;
+        }
+
+        a:hover {
+            color:lighten($blueGray,10%);
+            border-color: lighten($blueGray,10%);
+        }    
+    }
+}
+
+.contact-form {
+    width:95%;
+    max-width:800px;
+    margin:0 auto;
+}
+
+.form-control {
+    position: relative;
+    margin-bottom:.5em;
+
+    label {
+        display:block;
+        font-weight:500;
+        position:absolute;
+        color:#FFF;
+    }
+
+    input,
+    textarea {
+        display:block;
+        width:100%;
+        outline:none;
+        border:none;
+        position:relative;
+        padding:1em 1.5em;
+        background-color:rgba(255,255,255,0.1);
+        border-radius:4px;
+        font-size:16px;
+        color:#FFF;
+    }
+
+    textarea {
+        height:300px;
+    }
+}

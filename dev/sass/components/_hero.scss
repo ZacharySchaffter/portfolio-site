@@ -1,6 +1,6 @@
 .hero {
-    background-image: linear-gradient(to bottom, transparent, transparentize($mdBlue,0.5) 90%), 
-                      radial-gradient(ellipse 100% 150% at center bottom, $mdBlue, $dkBlue 80%);
+    background-image: linear-gradient(to bottom, transparent, transparentize($heroLt,0.5) 90%), 
+                      radial-gradient(ellipse 100% 150% at center bottom, $heroLt, $heroDk 80%);
     background-blend-mode: lighten, normal;   
     background-size:cover;
     background-position:center bottom;
