@@ -17,26 +17,32 @@ let bgCloud2Props = {
   stroke: "rgba(255,255,255,0.35)",
   "stroke-width": 2
 }
+let bgCloud3Props = {
+  fill : "rgba(255,255,255,0.2)",
+  stroke: "rgba(255,255,255,0.25)",
+  "stroke-width": 1
+}
 let fgCloud = new Line("fg-cloud", 150, 20, [0.775, 0.8], 300, fgCloudProps);
 let bgCloud = new Line("bg-cloud-1", 120, 30, [0.69, 0.75], 300, bgCloudProps);
 let bgCloud2 = new Line("bg-cloud-2", 100, 35, [0.676, 0.7], 300, bgCloud2Props);
+let bgCloud3 = new Line("bg-cloud-3", 90, 40, [0.64, 0.67], 300, bgCloud3Props);
 
 fgCloud.init();
 bgCloud.init();
 bgCloud2.init();
+bgCloud3.init();
 
-let btmFgCloud = new Line("btm-fg-cloud", 150, 20, [0.775, 0.8], 300, fgCloudProps, true);
-let btmBgCloud = new Line("btm-bg-cloud-1", 120, 30, [0.69, 0.75], 300, bgCloudProps, true);
-let btmBgCloud2 = new Line("btm-bg-cloud-2", 100, 35, [0.676, 0.7], 300, bgCloud2Props, true);
+let btmFgCloud = new Line("btm-fg-cloud", 150, 20, [.5, .6], 300, fgCloudProps, true);
+let btmBgCloud = new Line("btm-bg-cloud-1", 120, 30, [.4, .5], 300, bgCloudProps, true);
+let btmBgCloud2 = new Line("btm-bg-cloud-2", 100, 35, [.3, .4], 300, bgCloud2Props, true);
 
 btmFgCloud.init();
 btmBgCloud.init();
 btmBgCloud2.init();
 
-//contact form submission stuff
-let popupNode = document.querySelector(".popup__wrap");
-let body = document.body;
-let popupVisibleClass = "popup-is-visible"
+//Contact Form
+let contactForm = require('./contact-form');
+let contactform = contactForm;
 
 //Stardrawing
 var drawStars = require('./stars');
@@ -44,14 +50,6 @@ var drawStars = require('./stars');
 //draw the stars
 drawStars("stars", 300, 1, 4);
 
-//
-
-var request = require('request');
-/*request('http://www.google.com', function (error, response, body) {
-  console.log('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  console.log('body:', body); // Print the HTML for the Google homepage.
-});*/
 
 
 //parallax scrolling

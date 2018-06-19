@@ -51,8 +51,15 @@ gulp.task('js', function() {
     }) //only look at app entry
         .transform(babelify)
         .bundle()
+        .on('error', exceptionLog)
         .pipe(source("script.js"))
         .pipe(gulp.dest(prodJs));
+});
+
+//PHP
+gulp.task('php', function() {
+    return gulp.src(dev + '**/*.php')
+        .pipe(gulp.dest(prod));
 });
 
 //Images 
@@ -71,7 +78,8 @@ gulp.task('watch', function() {
     gulp.watch([dev + '**/*.js'], ['js']);
     gulp.watch([dev + '**/*.html'], ['html']);
     gulp.watch([dev + 'img/*'], ['images']);
+    gulp.watch([dev + '**/*.php'], ['php']);
     gulp.watch(dev + '**/*').on('change', browserSync.reload);
 });
 
-gulp.task('default', ['watch', 'css', 'js', 'images', 'html']);
+gulp.task('default', ['watch', 'css', 'js', 'images', 'html', 'php']);

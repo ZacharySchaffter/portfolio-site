@@ -5,13 +5,15 @@
     background-size:cover;
     background-position:center top;
 
-    padding-bottom:250px;
 }
 
 .clouds-bottom {
     height:300px;
     position:relative;
+    
 }
+
+
 
 #btm-fg-cloud,
 #btm-bg-cloud-1,
@@ -30,9 +32,11 @@
 
 #btm-bg-cloud-1 {
     height:100%;
+    mix-blend-mode:soft-light;
 }
 
 #btm-bg-cloud-2 {
     height:100%;
+    mix-blend-mode:soft-light;
 }
 

@@ -130,29 +130,20 @@ $borderWidth : 5px;
 
 #fg-cloud,
 #bg-cloud-1,
-#bg-cloud-2 {
+#bg-cloud-2,
+#bg-cloud-3 {
   position:absolute; 
   left:0;
   bottom:0;
   width:100%;
   overflow:hidden;
-}
-
-#bg-cloud-1,
-#bg-cloud-2 {
-    mix-blend-mode:soft-light;
-}
-
-#fg-cloud {
   height:100%
 }
 
-#bg-cloud-1 {
-    height:100%;
-}
-
-#bg-cloud-2 {
-    height:100%;
+#bg-cloud-1,
+#bg-cloud-2,
+#bg-cloud-3 {
+    mix-blend-mode:soft-light;
 }
 
 svg {width:100%; height:100%;}

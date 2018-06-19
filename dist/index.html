@@ -20,13 +20,13 @@
                 <ul>
                     <li><a href="#work">work</a></li>
                     <li><a href="#social-media">social</a></li>
-                    <li><a href="#contact">contact</a></li>
+                    <li><a href="#contactForm">contact</a></li>
                 </ul>
             </nav>    
         </div>
     </header>
     <section class="hero container-fluid">
-        <div class="hero__content scroll">
+        <div class="hero__content">
             <div class="hero__logo"><img src="./img/logo-white.svg" alt="Zack's logo"></div>
             <div class="hero__text">
                 <h1>Zachary Schaffter <small><span>Designer</span> <span class="divider">|</span> <span>Developer</span></small></h1>
@@ -36,6 +36,7 @@
         <svg id="stars" version="1.1" style="position:fixed"></svg>
         <div id="bg-cloud-1"></div>
         <div id="bg-cloud-2"></div>
+        <div id="bg-cloud-3"></div>
         <div id="fg-cloud"></div>
         
     </section>
@@ -153,33 +154,36 @@
                 <div id="btm-fg-cloud" ></div>
             </div>
 
-            <div class="contact-form">
+            <div id="contactForm" class="contact-form">
                 <h2>Say hello.</h2>
                 <p>Wanna chat? Send me a message.</p>
-                <form name="contact-form" action="">
-                    <div class="form-control">
+                <form @submit="checkForm" action="" name="contact-form" method="post">
+                    <div class="form-control" :class="{ 'has-errors': errors.name, 'has-value': name !== '' }">
+                        <input id="name" type="text" v-model="name">
                         <label for="name">Name</label>
-                        <input id="name" type="text">
-                        <div class="error"></div>
+                        <div class="error" v-if=errors.name>{{errors.name}}</div>
                     </div>
 
-                    <div class="form-control">
+                    <div class="form-control" :class="{ 'has-errors': errors.email, 'has-value': email !== '' }">
+                        <input id="email" type="text" v-model="email">
                         <label for="email">E-mail Address</label>
-                        <input id="email" type="text">
-                        <div class="error"></div>
+                        <div class="error" v-if=errors.email>{{errors.email}}</div>
                     </div>
 
-                    <div class="form-control">
-                        <label for="message">Message</label>
-                        <textarea id="message" placeholder="Type your message"></textarea>
-                        <div class="error"></div>
+                    <div class="form-control" :class="{ 'has-errors': errors.message, 'has-value': email !== '' }">
+                        <textarea id="message" placeholder="Type your message" v-model="message"></textarea>
+                        <label for="message" class="sr-only">Message</label>
+                        <div class="error" v-if=errors.message>{{errors.message}}</div>
                     </div>
+
+                    <button type="submit">Send Message</button>
                 </form>
             </div>
         </section>
     </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.5/svg.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="./js/script.js"></script>
     
   </body>
