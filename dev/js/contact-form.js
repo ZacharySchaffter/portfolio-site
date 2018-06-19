@@ -41,13 +41,18 @@ let contactForm = new Vue({
         //Send data via post
         let self = this;
         this.isSending = true;
-        console.log(this.name, this.email, this.message);
-        axios.post('../submit.php', { name: self.name, email: self.email, message: self.message })
-            .then(function(response){
-                console.log('Message Sent');
-                console.log(response);
-                self.isSending = false;
-            });  
+
+        //AXIOS...*shakes fist*
+        const data = new FormData();
+
+        data.append('name', this.name);
+        data.append('email', this.email);
+        data.append('message', this.message);
+
+        axios.post('../submit.php', data)
+        .then(function(response){
+            self.isSending = false;
+        });  
     }
       
      
@@ -55,7 +60,6 @@ let contactForm = new Vue({
 
     validEmail: function (email) {
         var regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        console.log("Checking Email: "+regexp.test(email));
         return regexp.test(email);
     }
   },

@@ -75,6 +75,10 @@ $error-red : #ff8f8f;
         font-size:16px;
         color:#FFF;
         font-family:$fontStack-copy;
+
+        &::placeholder {
+            color:#FFF;
+        }
     }
 
     input {
