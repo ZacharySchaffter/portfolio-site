@@ -1,119 +1,178 @@
-$error-red : #ff8f8f;
+$error-red: #ff8f8f;
+
+.form-wrap {
+    position:relative;
+    border-radius:4px;
+     width: 95%;
+    max-width: 800px;
+    margin: 20px auto;
+
+}
 
 .contact-form {
-    z-index:10;
-    position:relative;
-    padding:25px 0;
-    text-align:center;
-    font-family:$fontStack-copy;
+    overflow:hidden;
+    z-index: 10;
+    position: relative;
+    padding: 25px 0 75px;
+    text-align: center;
+    font-family: $fontStack-copy;
 
-    h2 {margin-bottom:.5em;}
+    h2 {
+        margin-bottom: 0.5em;
+        &:before,
+        &:after {
+            content:none;
+        }
+    }
 
     p {
-        color:$ltBlue;
-        font-size:18px;
-    }
-    
-    form {
-        width:95%;
-        max-width:800px;
-        margin:20px auto;
+        color: $ltBlue;
+        font-size: 18px;
     }
 
     button {
-        font-family:$fontStack-copy;
-        background-color:darken($mdBlue,8%);
-        color:#FFF;
-        border-radius:4px;
-        border:1px solid lighten($mdBlue, 10%);
-        padding:1em 2.5em;
-        text-transform:uppercase;
-        outline:none;
-        font-size:16px;
-        font-weight:600;
-        cursor:pointer;
-        transition:all 250ms ease;
+        font-family: $fontStack-copy;
+        background-color: darken($mdBlue, 8%);
+        color: #fff;
+        border-radius: 4px;
+        border: 1px solid lighten($mdBlue, 10%);
+        padding: 1em 2.5em;
+        text-transform: uppercase;
+        outline: none;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 250ms ease;
+        position:relative;
+        overflow:hidden;
 
         &:hover {
-            background-color:darken($mdBlue,10%);
+            background-color: darken($mdBlue, 10%);
+        }
+
+        .form-isSending__msg {
+            position:absolute;
+            padding: 1em 2.5em;
+            height:100%;
+            width:100%;
+            left:0;
+            top:0;
+            background-color: darken($mdBlue, 15%);
         }
 
     }
-    
 }
+
+
+
+.form-overlay {
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    opacity:1;
+    background-color:transparentize($dkBlue, 0.5);
+
+    .form-overlay__msg {
+
+    }
+
+}
+
+.fade-enter-active, 
+.fade-leave-active {
+    transition: opacity 1s;
+}
+
+.fade-enter, 
+.fade-leave-to {
+    opacity: 0;
+}
+
+
 
 .form-control {
     position: relative;
-    margin-bottom:1.5em;
-    border-radius:4px;
-    background-color:rgba(255,255,255,0.1);
+    margin-bottom: 1.5em;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
 
     label {
-        display:block;
-        font-weight:500;
-        position:absolute;
-        color:#FFF;
-
-        top:50%;
-        left:1em;
-        transform:translateY(-50%);
-        transition:all 250ms ease;
-        transform-origin:0 50%;
+        display: block;
+        font-weight: 500;
+        position: absolute;
+        color: #fff;
+        top: 50%;
+        left: 1em;
+        transform: translateY(-50%);
+        transition: all 250ms ease;
+        transform-origin: 0 50%;
     }
 
     input,
     textarea {
-        display:block;
-        width:100%;
-        outline:none;
-        border:none;
-        position:relative;
-        padding:1em;
-        z-index:1;
-        background-color:transparent;
-        border-radius:4px;
-        font-size:16px;
-        color:#FFF;
-        font-family:$fontStack-copy;
+        display: block;
+        width: 100%;
+        outline: none;
+        border: none;
+        position: relative;
+        padding: 1em;
+        z-index: 1;
+        background-color: transparent;
+        border-radius: 4px;
+        font-size: 16px;
+        color: #fff;
+        font-family: $fontStack-copy;
 
         &::placeholder {
-            color:#FFF;
+            color: #fff;
         }
     }
 
     input {
-        padding-right:200px;
+        padding-right: 200px;
     }
 
     textarea {
-        height:200px;
+        height: 200px;
     }
 
     //Move the label if
     &.has-value label,
     input:focus + label {
-        top:-.75em;
-        transform:translateY(-50%) scale(0.75);
-        opacity:0.75;
+        top: -0.75em;
+        transform: translateY(-50%) scale(0.75);
+        opacity: 0.75;
     }
 
     .error {
-        position:absolute;
-        top:50%;
-        transform:translateY(-50%); 
-        right:1em;
-        color:$error-red;
-        font-style:italic;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 1em;
+        color: $error-red;
+        font-style: italic;
     }
 
-    textarea~.error {
-        top:1em;
+    textarea ~ .error {
+        top: 1em;
     }
 
     &.has-errors {
-        border:1px solid $error-red;
+        border: 1px solid $error-red;
     }
 
+    @media only screen and (max-width: 700px) {
+        margin-bottom:2em; 
 
+        input {
+            padding-right:1em;
+        }
 
+        .error,
+        textarea ~ .error {
+            top:calc(100% + 1em);
+        }        
+    }
 }

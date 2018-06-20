@@ -32,10 +32,9 @@ body {
 
 main {
     position:relative;
-    padding-top:50px;
+    top:-25px;
     background-color:#FFF;
     z-index:3;
-    overflow:hidden;
 
     * {
         position:relative;
@@ -43,22 +42,21 @@ main {
     
 
     h2 {
-        text-align:right;
         margin:.5em auto;
         position:relative;
         text-align: center;
         transform-origin:50% 50%;
-        
+        overflow:hidden;
+
         span {
             position:relative;            
             display:inline-block;
-            background-color:#FFF;
-            position:relative;
+            background-color: #fff;
             padding:0 1em;
         }
 
-        &:before {
-            content:"";
+        &::before {
+            content:'';
             height:50%;
             width:120%;
             left:60%;
@@ -69,6 +67,10 @@ main {
             background-color:transparentize($ltBlue, 0.5);
         }
     } 
+
+    #work {
+        padding-top:50px;
+    }
 }
 
 

@@ -39,7 +39,6 @@ Line.prototype.init = function(){
   if(!this.isStatic){
     //bind event handlers
     document.addEventListener("mousemove", obj.handleMouseMove.bind(obj));
-    document.addEventListener("touchmove", obj.handleTouchMove.bind(obj));
     document.addEventListener("mouseout", obj.handleMouseOut.bind(obj));
   }
   
@@ -174,9 +173,11 @@ Line.prototype.resize = function() {
     });
   });
   
-  //redraw.
+  //redraw.  
+  if (this.isStatic){
+    this.step();//restart it
+  }
   
-  //this.step();//restart it
 }
 
 Line.prototype.handleMouseMove = function(evt){
@@ -184,11 +185,6 @@ Line.prototype.handleMouseMove = function(evt){
   this.mouseY = evt.clientY;
 };
 
-//TODO add touchstart/end events
-Line.prototype.handleTouchMove = function(evt){
-  this.mouseX = evt.clientX;
-  this.mouseY = evt.clientY;
-};
 
 Line.prototype.handleMouseOut = function(evt){
   this.mouseX = null;

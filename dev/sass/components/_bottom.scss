@@ -1,15 +1,14 @@
 .bottom {
-    background-image: linear-gradient(to bottom, transparent, transparentize($heroLt,0.5) 90%), 
-                          radial-gradient(ellipse 100% 150% at center bottom, $heroLt, $heroDk 80%);
-    background-blend-mode: lighten, normal;   
-    background-size:cover;
-    background-position:center top;
-
+  top:25px; //matches the relative negative positioning of the work section
+  background-blend-mode: lighten, normal;
+  background-image: radial-gradient(ellipse 100% 150% at center bottom, $heroLt, $heroDk 80%);
+  background-position: center top;
+  background-size: cover;
 }
 
 .clouds-bottom {
-    height:300px;
-    position:relative;
+  height:300px;
+  position:relative;
     
 }
 
@@ -18,25 +17,25 @@
 #btm-fg-cloud,
 #btm-bg-cloud-1,
 #btm-bg-cloud-2 {
-    position:absolute; 
-    left:0;
-    top:0;
-    width:100%;
-    overflow:hidden;
-    transform:rotate(180deg);
+  position:absolute; 
+  left:0;
+  top:0;
+  width:100%;
+  overflow:hidden;
+  transform:rotate(180deg);
 }
 
 #btm-fg-cloud {
-  height:100%
+  height:100%;
 }
 
 #btm-bg-cloud-1 {
-    height:100%;
-    mix-blend-mode:soft-light;
+  height:100%;
+  mix-blend-mode:soft-light;
 }
 
 #btm-bg-cloud-2 {
-    height:100%;
-    mix-blend-mode:soft-light;
+  height:100%;
+  mix-blend-mode:soft-light;
 }
 

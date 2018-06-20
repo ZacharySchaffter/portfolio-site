@@ -41,7 +41,6 @@ Line.prototype.init = function () {
   if (!this.isStatic) {
     //bind event handlers
     document.addEventListener("mousemove", obj.handleMouseMove.bind(obj));
-    document.addEventListener("touchmove", obj.handleTouchMove.bind(obj));
     document.addEventListener("mouseout", obj.handleMouseOut.bind(obj));
   }
 
@@ -175,18 +174,13 @@ Line.prototype.resize = function () {
     });
   });
 
-  //redraw.
-
-  //this.step();//restart it
+  //redraw.  
+  if (this.isStatic) {
+    this.step(); //restart it
+  }
 };
 
 Line.prototype.handleMouseMove = function (evt) {
-  this.mouseX = evt.clientX;
-  this.mouseY = evt.clientY;
-};
-
-//TODO add touchstart/end events
-Line.prototype.handleTouchMove = function (evt) {
   this.mouseX = evt.clientX;
   this.mouseY = evt.clientY;
 };
@@ -316,7 +310,8 @@ var contactForm = new Vue({
         email: "",
         message: "",
         errors: {},
-        isSending: false
+        isSending: false,
+        status: null
     },
     methods: {
         checkForm: function checkForm(e) {
@@ -341,6 +336,7 @@ var contactForm = new Vue({
                 //Send data via post
                 var self = this;
                 this.isSending = true;
+                this.status = "sending";
 
                 //AXIOS...*shakes fist*
                 var data = new FormData();
@@ -350,7 +346,19 @@ var contactForm = new Vue({
                 data.append('message', this.message);
 
                 axios.post('../submit.php', data).then(function (response) {
-                    self.isSending = false;
+                    if (response.data.success) {
+
+                        setTimeout(function () {
+                            self.status = "success";
+                        }, 2000);
+
+                        setTimeout(function () {
+                            self.isSending = false;
+
+                            //reset
+                            self.resetForm();
+                        }, 4000);
+                    }
                 });
             }
         },
@@ -358,6 +366,12 @@ var contactForm = new Vue({
         validEmail: function validEmail(email) {
             var regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return regexp.test(email);
+        },
+
+        resetForm: function resetForm() {
+            this.email = "";
+            this.name = "";
+            this.message = "";
         }
     }
 
@@ -366,8 +380,22 @@ var contactForm = new Vue({
 module.exports = contactForm;
 
 },{"Axios":5}],3:[function(require,module,exports){
-"use strict";
+'use strict';
 
+var siteHeader = document.querySelector('.site-header');
+
+window.addEventListener('scroll', function (e) {
+
+    scrollPos = window.scrollY;
+
+    if (scrollPos > 0.5 * window.innerHeight) {
+        siteHeader.classList.add('scrolled');
+    } else {
+        siteHeader.classList.remove('scrolled');
+    }
+});
+
+//Clouds
 var Line = require('./cloudBuilder');
 
 //Id of the svg element to draw in, the width in % between points, an array containing the varying original heights of the points (in fractions of an integer), and the curvature of the points in pixels.
@@ -393,9 +421,9 @@ var bgCloud3Props = {
     "stroke-width": 1
 };
 var fgCloud = new Line("fg-cloud", 150, 20, [0.775, 0.8], 300, fgCloudProps);
-var bgCloud = new Line("bg-cloud-1", 120, 30, [0.69, 0.75], 300, bgCloudProps);
-var bgCloud2 = new Line("bg-cloud-2", 100, 35, [0.676, 0.7], 300, bgCloud2Props);
-var bgCloud3 = new Line("bg-cloud-3", 90, 40, [0.64, 0.67], 300, bgCloud3Props);
+var bgCloud = new Line("bg-cloud-1", 120, 30, [0.69, 0.75], 290, bgCloudProps);
+var bgCloud2 = new Line("bg-cloud-2", 100, 35, [0.676, 0.7], 270, bgCloud2Props);
+var bgCloud3 = new Line("bg-cloud-3", 90, 40, [0.64, 0.67], 250, bgCloud3Props);
 
 fgCloud.init();
 bgCloud.init();
@@ -424,48 +452,6 @@ drawStars("stars", 300, 1, 4);
 var scrollPos = 0;
 
 var parallaxElements = document.querySelectorAll(".scroll");
-
-var siteHeader = document.querySelector('.site-header');
-
-window.addEventListener('scroll', function (e) {
-
-    scrollPos = window.scrollY;
-
-    if (parallaxElements) {
-        parallaxElements.forEach(function (el, index) {
-            var transformProps = ""; //empty string for transformation properties
-
-            //handle translating
-            if (el.dataset.scrollSpeed) {
-                var scrollSpeed = Number(el.dataset.scrollSpeed);
-                var parallaxPos = (-scrollPos * scrollSpeed).toFixed(0);
-                console.log(parallaxPos);
-                transformProps += "translateY(" + parallaxPos + "px) ";
-            }
-
-            if (el.dataset.scrollRotate) {
-                var rotation = Number(scrollPos * el.dataset.scrollRotate);
-                var maxRotation = Number(el.dataset.scrollMaxRotate);
-
-                var actualRotation = rotation < maxRotation ? rotation.toFixed(0) : maxRotation;
-                transformProps += "rotateX(" + actualRotation + "deg) ";
-            }
-
-            if (el.dataset.scrollFade) {
-                var opacity = 1 - Number(scrollPos * el.dataset.scrollFade);
-                el.style.opacity = opacity;
-            }
-
-            el.style.transform = transformProps;
-        });
-    }
-
-    if (scrollPos > 0.5 * window.innerHeight) {
-        siteHeader.classList.add('scrolled');
-    } else {
-        siteHeader.classList.remove('scrolled');
-    }
-});
 
 //hide all headings/projects to start with the .invisible class
 /*

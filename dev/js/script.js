@@ -1,3 +1,21 @@
+const siteHeader = document.querySelector('.site-header');
+
+
+window.addEventListener('scroll', function(e) {
+
+    scrollPos = window.scrollY;
+
+    if (scrollPos>(0.5*window.innerHeight)) {
+        siteHeader.classList.add('scrolled');
+    } else {
+        siteHeader.classList.remove('scrolled');
+    }
+
+
+});
+
+
+//Clouds
 const Line = require('./cloudBuilder');
 
 //Id of the svg element to draw in, the width in % between points, an array containing the varying original heights of the points (in fractions of an integer), and the curvature of the points in pixels.
@@ -23,9 +41,9 @@ let bgCloud3Props = {
   "stroke-width": 1
 }
 let fgCloud = new Line("fg-cloud", 150, 20, [0.775, 0.8], 300, fgCloudProps);
-let bgCloud = new Line("bg-cloud-1", 120, 30, [0.69, 0.75], 300, bgCloudProps);
-let bgCloud2 = new Line("bg-cloud-2", 100, 35, [0.676, 0.7], 300, bgCloud2Props);
-let bgCloud3 = new Line("bg-cloud-3", 90, 40, [0.64, 0.67], 300, bgCloud3Props);
+let bgCloud = new Line("bg-cloud-1", 120, 30, [0.69, 0.75], 290, bgCloudProps);
+let bgCloud2 = new Line("bg-cloud-2", 100, 35, [0.676, 0.7], 270, bgCloud2Props);
+let bgCloud3 = new Line("bg-cloud-3", 90, 40, [0.64, 0.67], 250, bgCloud3Props);
 
 fgCloud.init();
 bgCloud.init();
@@ -57,52 +75,7 @@ let scrollPos = 0;
 
 const parallaxElements = document.querySelectorAll(".scroll");
 
-const siteHeader = document.querySelector('.site-header');
 
-
-window.addEventListener('scroll', function(e) {
-
-    scrollPos = window.scrollY;
-    
-    if (parallaxElements) {
-        parallaxElements.forEach(function(el,index){
-            let transformProps = "";//empty string for transformation properties
-
-            //handle translating
-            if (el.dataset.scrollSpeed) {
-                let scrollSpeed = Number(el.dataset.scrollSpeed);
-                let parallaxPos = (-(scrollPos)*scrollSpeed).toFixed(0);
-                console.log(parallaxPos);
-                transformProps += "translateY("+parallaxPos+"px) ";
-            }
-
-            if (el.dataset.scrollRotate) {
-                let rotation = Number(scrollPos*el.dataset.scrollRotate);
-                let maxRotation = Number(el.dataset.scrollMaxRotate);
-
-                let actualRotation = rotation < maxRotation ? (rotation).toFixed(0) : maxRotation;
-                transformProps += "rotateX("+actualRotation+"deg) ";
-
-
-            }
-
-            if (el.dataset.scrollFade){
-                let opacity = 1-Number(scrollPos*el.dataset.scrollFade);
-                el.style.opacity = opacity;
-            }
-            
-            el.style.transform = transformProps;
-        })  
-    }
-
-    if (scrollPos>(0.5*window.innerHeight)) {
-        siteHeader.classList.add('scrolled');
-    } else {
-        siteHeader.classList.remove('scrolled');
-    }
-
-
-});
 
 
 

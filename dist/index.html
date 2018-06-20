@@ -147,8 +147,9 @@
                         </div>
                     </div>     
                 </div> 
-            </main>
+            
         </section>
+
         <section class="bottom">
             <div class="clouds-bottom">
                 <div id="btm-bg-cloud-1"></div>
@@ -159,27 +160,37 @@
             <div id="contactForm" class="contact-form">
                 <h2>Say hello.</h2>
                 <p>Wanna chat? Send me a message.</p>
-                <form @submit="checkForm" action="" name="contact-form" method="post">
-                    <div class="form-control" :class="{ 'has-errors': errors.name, 'has-value': name !== '' }">
-                        <input id="name" type="text" v-model="name">
-                        <label for="name">Name</label>
-                        <div class="error" v-if=errors.name>{{errors.name}}</div>
-                    </div>
+                <div class="form-wrap"> 
+                    <form @submit="checkForm" action="" name="contact-form" method="post" autocomplete="off">
+                        <div class="form-control" :class="{ 'has-errors': errors.name, 'has-value': name !== '' }">
+                            <input id="name" type="text" v-model="name" autocomplete="off">
+                            <label for="name">Name</label>
+                            <div class="error" v-if=errors.name>{{errors.name}}</div>
+                        </div>
 
-                    <div class="form-control" :class="{ 'has-errors': errors.email, 'has-value': email !== '' }">
-                        <input id="email" type="text" v-model="email">
-                        <label for="email">E-mail Address</label>
-                        <div class="error" v-if=errors.email>{{errors.email}}</div>
-                    </div>
+                        <div class="form-control" :class="{ 'has-errors': errors.email, 'has-value': email !== '' }">
+                            <input id="email" type="text" v-model="email" autocomplete="off">
+                            <label for="email">E-mail Address</label>
+                            <div class="error" v-if=errors.email>{{errors.email}}</div>
+                        </div>
 
-                    <div class="form-control" :class="{ 'has-errors': errors.message, 'has-value': email !== '' }">
-                        <textarea id="message" placeholder="Type your message" v-model="message"></textarea>
-                        <label for="message" class="sr-only">Message</label>
-                        <div class="error" v-if=errors.message>{{errors.message}}</div>
-                    </div>
+                        <div class="form-control" :class="{ 'has-errors': errors.message, 'has-value': email !== '' }">
+                            <textarea id="message" placeholder="Type your message" v-model="message" autocomplete="off"></textarea>
+                            <label for="message" class="sr-only">Message</label>
+                            <div class="error" v-if=errors.message>{{errors.message}}</div>
+                        </div>
 
-                    <button type="submit">Send Message</button>
-                </form>
+                        <button type="submit" :disabled="isSending">
+                            Send Message
+                            <transition name="fade">
+                                <div class="form-isSending__msg" v-if="isSending">
+                                    <span v-if="status==='sending'">Sending... <span class="fas fa-spin fa-circle-notch"></span></span>
+                                    <span v-if="status==='success'">Message Sent</span>
+                                </div>
+                            </transition>
+                        </button>
+                    </form>                    
+                </div>
             </div>
         </section>
     </main>
