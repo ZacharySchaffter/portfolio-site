@@ -1,6 +1,10 @@
 #social-media {
     margin:50px auto 100px;
     padding-top:50px;
+
+    .container-fluid {
+        max-width:1200px;
+    }
 }
 
 .social-media__wrap {
@@ -36,5 +40,21 @@
 
     a.social-media__item__logotype {
         display:block;
+    }
+
+    @media only screen and (max-width:$breakpoint-mobile) {
+        display:flex;
+        width:95%;
+        align-items:center;
+        max-width:none;
+        margin-bottom:1em;
+
+        a.social-media__item__logo {
+            flex:1 1 auto;
+        }
+
+        a.social-media__item__logotype {
+            flex:2 2 auto;
+        }
     }
 }
