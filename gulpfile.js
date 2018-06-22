@@ -51,9 +51,9 @@ gulp.task('js', function() {
     }) //only look at app entry
         .transform(babelify)
         .bundle()
-        .on('error', exceptionLog)
         .pipe(source("script.js"))
-        .pipe(gulp.dest(prodJs));
+        .pipe(gulp.dest(prodJs))
+        .on('error', exceptionLog);
 });
 
 //PHP

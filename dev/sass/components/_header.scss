@@ -6,8 +6,8 @@ header {
     display:flex;
     justify-content:space-between;
 
-    &:before {
-        content:"";
+    &::before {
+        content:'';
         width:100%;
         height:100%;
         position:absolute;
@@ -16,10 +16,13 @@ header {
         transition:opacity 300ms ease;
         opacity:0;
     }
-        
-    .container {
+
+    .container-fluid {
         display:flex;
         justify-content:space-between;
+        align-items:center;
+        max-width:1200px;
+        z-index:1;
     }
 
     #site-id {
@@ -30,19 +33,25 @@ header {
             display:block;
             width:80px;
             height:65px;
+            transition:all 250ms ease;
+
+            @media only screen and (max-width:$breakpoint-mobile) {
+                width:60px;
+                height:50px;
+            }
         }
     }
 
     nav {
-        display:inline-block;
+        display:none;
 
         ul {
-            padding:0px;
+            padding:0;
             display:flex;
             align-items:stretch;
             height:100%;
         }
-        
+
         a {
             position:relative;
             display:flex;
@@ -50,49 +59,150 @@ header {
             flex-direction:column;
             padding:1.5em 2em;
             height:100%;
-            color:#FFF;
+            color:mix($heroLt, $heroDk);
+            text-transform:uppercase;
             font-weight:700;
-            display:inline-block;
             text-decoration:none;
             border-radius:4px;
             overflow:hidden;
+            transition:all 250ms ease;
 
             &:hover,
-            a:focus {
-                background-color:transparentize(#FFF, 0.9);
+            &:focus {
+                background-color:transparentize($mdBlue, 0.9);
+                color:#fff;
             }
 
-            &:before {
-                content:"";
+            &::before {
+                content:'';
                 width:100%;
                 height:200%;
                 position:absolute;
                 left:0;
                 top:-50%;
-                box-shadow:inset 0px 0px 4px transparent;
-
+                box-shadow:inset 0 0 4px transparent;
             }
+        }
+
+        @media only screen and (min-width:$breakpoint-mobile) {
+            display:inline-block;
         }
     }
 
+    
 
     //Once scrolled
-    &.scrolled{
-        &:before {
+    &.scrolled {
+        &::before {
             opacity:1;
         }
 
         nav {
-            a:hover,
-            a:focus {
-                background-color:darken($mdBlue, 2%);
+            a {
+                &:hover,
+                &:focus {
+                    background-color:darken($mdBlue, 2%);
 
-                &:before {
-                    box-shadow:inset 0px 0px 8px transparentize($dkBlue, 0.7);
+                    &::before {
+                        box-shadow:inset 0 0 8px transparentize($dkBlue, 0.7);
+                    }
                 }
-
             }
         }
+    }
+}
+
+$lineHeight: 5px;
+$delay : 300ms;
+
+.mobile-nav-button {
+    width: 32px; 
+    height: 5 * $lineHeight;
+    padding:0;
+    outline: none;
+    border: 0;
+    display:block;
+    background-color: transparent;
+    transition:height 250ms ease;
+    position:relative;
+    cursor:pointer;
+
+    &::before,
+    &::after,
+    .line {
+        display: block;
+        height: $lineHeight;
+        width:100%;
+        background-color: mix($heroLt, $heroDk);
+        border-radius: $lineHeight / 2;
+        transition:color 100ms ease;
+    }
+
+    &::before,
+    &::after {
+        content:'';
+        position:absolute;
+        left:0;
+        transform-origin:50% 50%;
+    }
+
+    &::before {
+        top:0;
+        transition:top 100ms ease, transform 250ms ease 100ms;
+    }
+
+    &::after {
+        bottom:0;
+        transition:top 100ms ease, transform 250ms ease 100ms;
+    }
+
+    .line {
+        width:100%;
+        height:$lineHeight;
+        transition:opacity 100ms linear 100ms;
+    }
+
+    &:hover {
+        &::before,
+        &::after,
+        .line {
+            background-color: lighten(mix($heroLt, $heroDk), 5%);
+        }
+
+        &::before {
+            top:-2px;
+        }
+
+        &::after {
+            bottom:-2px;
+        }
+    }
+
+    //active state
+    &.active,
+    &.active:hover {
+        height:$lineHeight;
+        transition:height 250ms ease;
+        
+        .line {
+            opacity:0;
+        }
+
+        &::before {
+            top:0;
+            transform:rotate(45deg);
+        }
+
+        &::after {
+            bottom:0;
+            transform:rotate(-45deg);
+        }
+    }
+
+    
+
+    @media only screen and (min-width:$breakpoint-mobile) {
+        display: none;
     }
 }
 

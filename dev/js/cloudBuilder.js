@@ -5,7 +5,14 @@
 //Distance in pixels at which the mousecursor affects the points
 //an object of various properties
 function Line(svgId, segmentWidth, curvature, heightArr, sphereOfInfluence, svgAttr, isStatic) {
+  
+  if (!document.getElementById(svgId)){
+    return;
+  }
+
   this.svgEl = SVG(svgId);//initialize the svg
+
+
   this.svgPath = this.svgEl.path("M0,0");
   
   //Pass the properties to the svgpath
@@ -30,6 +37,9 @@ function Line(svgId, segmentWidth, curvature, heightArr, sphereOfInfluence, svgA
 
 //Initialize the line object
 Line.prototype.init = function(){
+  if (!this.svgEl) {
+    return;
+  }
   var obj = this;
   this.createNodes();
 
@@ -187,8 +197,8 @@ Line.prototype.handleMouseMove = function(evt){
 
 
 Line.prototype.handleMouseOut = function(evt){
-  this.mouseX = null;
-  this.mouseY = null;
+  this.mouseX = false;
+  this.mouseY = false;
 };
 
 function Sphere(el, x, y, forceDistance){
@@ -229,15 +239,13 @@ Sphere.prototype.move = function(mouseX, mouseY) {
   // convert (0...maxDistance) range into a (1...0).
   // Close is near 1, far is near 0
   let force = (maxDistance - distance) / maxDistance;
+
   // if we went below zero, set it to zero.
   if (force < 0) {
     force = 0;
     this.animateBackToCenter();
     
-  } else {
-    this.currentX = this.svgEl.attr("cx");
-    this.currentY = this.svgEl.attr("cy");   
-  }
+  } 
   
   this.currentX += forceDirection.x * force * 3;
   this.currentY += forceDirection.y * force * 3;
@@ -251,7 +259,7 @@ Sphere.prototype.move = function(mouseX, mouseY) {
 //function to animate circle back to original center
 Sphere.prototype.animateBackToCenter = function(){
   if (this.currentX == this.centerX && this.currentY == this.centerY){
-    return;
+    return; //don't do anything if it's back to its default
   }
   
   let posRelativeToCenter = {
@@ -283,10 +291,7 @@ Sphere.prototype.animateBackToCenter = function(){
   this.currentX += forceDirection.x * force * 1;
   this.currentY += forceDirection.y * force * 1;
   
-  /*this.svgEl.attr({
-    cx : this.currentX, 
-    cy : this.currentY
-  })*/
+  
   
    
 };

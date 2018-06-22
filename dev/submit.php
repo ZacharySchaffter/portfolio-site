@@ -31,8 +31,9 @@
 
     //Send email
     $headers = "From: messages@zacharyschaffter.com";
+    $subject = "Message from: $name";
     $message = "$name \r\n\r\n $email \r\n\r\n $message";
-    mail("hull4baloo@yahoo.com","Message from: "+$name,$message, $headers);
+    mail("hull4baloo@yahoo.com", $subject, $message, $headers);
     
     $status = [
         "success" => true

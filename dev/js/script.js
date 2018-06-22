@@ -58,15 +58,37 @@ btmFgCloud.init();
 btmBgCloud.init();
 btmBgCloud2.init();
 
+
+
+
+//Nav Menu
+let navMenu = require('./navigation-menu');
+navMenu.navigationMenu;
+navMenu.mobileNav;
+
 //Contact Form
 let contactForm = require('./contact-form');
-let contactform = contactForm;
+contactForm;
 
 //Stardrawing
 var drawStars = require('./stars');
 
 //draw the stars
 drawStars("stars", 300, 1, 4);
+
+//Toggle class
+let navButton = document.querySelector('.toggle-nav');
+let mobileNav = document.getElementById('mobile-nav');
+
+/*
+navButton.onclick = function() {
+  console.log("Clicked");
+  navButton.classList.toggle('active');
+}
+*/
+
+//bind click handlers to all mobile nav anchor links
+
 
 
 

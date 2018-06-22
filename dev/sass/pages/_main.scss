@@ -11,9 +11,8 @@ body {
     box-sizing:border-box;
 }
 
-#app {
-    height:100%;
-}
+[v-cloak] {display: none}
+
 
 .container {position:relative;}
 

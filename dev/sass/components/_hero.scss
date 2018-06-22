@@ -4,6 +4,7 @@
     background-size:cover;
     background-position:center bottom;
     height:100%;
+    min-height:500px;
     padding:3em;
     perspective:500px;
     z-index:1;
@@ -40,6 +41,7 @@
     position:relative;
     top:25%;
     transform-origin:50% 100%;
+
     z-index:3;
     transition:all 200ms ease;
 
@@ -57,6 +59,11 @@
         width:50%;
         max-width:220px;
         min-width:120px;
+        transition:all 250ms ease;
+
+        @media only screen and (max-width:$breakpoint-mobile) {
+            max-width:175px;
+        }
     }
 }
 
@@ -78,6 +85,7 @@ $borderWidth : 5px;
         margin-top:.25em;
         font-weight:700;
         text-transform:uppercase;
+        transition:all 250ms ease;
 
         small {
             display:flex;
@@ -86,6 +94,7 @@ $borderWidth : 5px;
             margin-top:.5em;
             font-size:28px;
             font-weight:500;
+            transition:all 250ms ease;
 
             span {
                 flex: 1 1 0;
@@ -106,7 +115,7 @@ $borderWidth : 5px;
         }
     }
 
-     @media only screen and (max-width:700px) {
+     @media only screen and (max-width:$breakpoint-mobile) {
         h1 {font-size:28px;}
         h1 small {
             font-size:18px;

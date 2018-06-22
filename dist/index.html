@@ -12,21 +12,29 @@
     <link rel="icon" type="image/png" href="img/favicons/favicon-16x16.png" sizes='16x16'/>
   </head>
   <body>
-
     <header class="site-header">
-        <div class="container">
+        <div id="mainNavigation" class="container-fluid">
             <div id="site-id">
                 <img src="./img/logo-white.svg" alt="Zachary Schaffter">
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#work">work</a></li>
-                    <li><a href="#social-media">social</a></li>
-                    <li><a href="#contactForm">contact</a></li>
+                    <li v-for="navItem in navItems"><a :href="navItem.url">{{navItem.name}}</a></li>
                 </ul>
-            </nav>    
+
+            </nav>
+            <button id="mobileNavButton" class="mobile-nav-button toggle-nav" :class="{active : mobileNavIsShown}" v-on:click="toggleNav()">
+                <span class="line"></span>
+            </button>
+            
+             
         </div>
     </header>
+    <nav id="mobileNav" class="mobile-nav" v-if="mobileNavIsShown" @click="toggleNav()" v-cloak >
+        <ul>
+            <li v-for="navItem in navItems"><a :href="navItem.url" @click.stop="toggleNav()">{{navItem.name}}</a></li>            
+        </ul>
+    </nav>
     <section class="hero container-fluid">
         <div class="hero__content">
             <div class="hero__logo"><img src="./img/logo-white.svg" alt="Zack's logo"></div>
@@ -194,9 +202,10 @@
             </div>
         </section>
     </main>
+
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.5/svg.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="./js/script.js"></script>
     
   </body>

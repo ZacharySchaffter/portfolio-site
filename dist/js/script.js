@@ -8,7 +8,14 @@
 //Distance in pixels at which the mousecursor affects the points
 //an object of various properties
 function Line(svgId, segmentWidth, curvature, heightArr, sphereOfInfluence, svgAttr, isStatic) {
+
+  if (!document.getElementById(svgId)) {
+    return;
+  }
+
   this.svgEl = SVG(svgId); //initialize the svg
+
+
   this.svgPath = this.svgEl.path("M0,0");
 
   //Pass the properties to the svgpath
@@ -32,6 +39,9 @@ function Line(svgId, segmentWidth, curvature, heightArr, sphereOfInfluence, svgA
 
 //Initialize the line object
 Line.prototype.init = function () {
+  if (!this.svgEl) {
+    return;
+  }
   var obj = this;
   this.createNodes();
 
@@ -186,8 +196,8 @@ Line.prototype.handleMouseMove = function (evt) {
 };
 
 Line.prototype.handleMouseOut = function (evt) {
-  this.mouseX = null;
-  this.mouseY = null;
+  this.mouseX = false;
+  this.mouseY = false;
 };
 
 function Sphere(el, x, y, forceDistance) {
@@ -229,13 +239,11 @@ Sphere.prototype.move = function (mouseX, mouseY) {
   // convert (0...maxDistance) range into a (1...0).
   // Close is near 1, far is near 0
   var force = (maxDistance - distance) / maxDistance;
+
   // if we went below zero, set it to zero.
   if (force < 0) {
     force = 0;
     this.animateBackToCenter();
-  } else {
-    this.currentX = this.svgEl.attr("cx");
-    this.currentY = this.svgEl.attr("cy");
   }
 
   this.currentX += forceDirection.x * force * 3;
@@ -250,7 +258,7 @@ Sphere.prototype.move = function (mouseX, mouseY) {
 //function to animate circle back to original center
 Sphere.prototype.animateBackToCenter = function () {
   if (this.currentX == this.centerX && this.currentY == this.centerY) {
-    return;
+    return; //don't do anything if it's back to its default
   }
 
   var posRelativeToCenter = {
@@ -281,11 +289,6 @@ Sphere.prototype.animateBackToCenter = function () {
 
   this.currentX += forceDirection.x * force * 1;
   this.currentY += forceDirection.y * force * 1;
-
-  /*this.svgEl.attr({
-    cx : this.currentX, 
-    cy : this.currentY
-  })*/
 };
 
 module.exports = Line;
@@ -379,20 +382,64 @@ var contactForm = new Vue({
 
 module.exports = contactForm;
 
-},{"Axios":5}],3:[function(require,module,exports){
+},{"Axios":6}],3:[function(require,module,exports){
+"use strict";
+
+//Navigation source data
+var source = {
+  navItems: [{
+    name: "work",
+    url: "#work"
+  }, {
+    name: "social",
+    url: "#social-media"
+  }, {
+    name: "contact",
+    url: "#contactForm"
+  }],
+
+  mobileNavIsShown: false
+};
+
+var navigationMenu = new Vue({
+  el: '#mainNavigation',
+  data: source,
+  methods: {
+    toggleNav: function toggleNav() {
+      source.mobileNavIsShown = !source.mobileNavIsShown;
+    }
+  }
+});
+
+var mobileNav = new Vue({
+  el: '#mobileNav',
+  data: source,
+  methods: {
+    toggleNav: function toggleNav() {
+      source.mobileNavIsShown = !source.mobileNavIsShown;
+    }
+  }
+});
+
+module.exports = {
+  navigationMenu: navigationMenu,
+  mobileNav: mobileNav
+};
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var siteHeader = document.querySelector('.site-header');
 
 window.addEventListener('scroll', function (e) {
 
-    scrollPos = window.scrollY;
+  scrollPos = window.scrollY;
 
-    if (scrollPos > 0.5 * window.innerHeight) {
-        siteHeader.classList.add('scrolled');
-    } else {
-        siteHeader.classList.remove('scrolled');
-    }
+  if (scrollPos > 0.5 * window.innerHeight) {
+    siteHeader.classList.add('scrolled');
+  } else {
+    siteHeader.classList.remove('scrolled');
+  }
 });
 
 //Clouds
@@ -401,24 +448,24 @@ var Line = require('./cloudBuilder');
 //Id of the svg element to draw in, the width in % between points, an array containing the varying original heights of the points (in fractions of an integer), and the curvature of the points in pixels.
 //id of the svg, the number of points, the curvature, the height array, the force distance, and the svg properties
 var fgCloudProps = {
-    fill: "#FFF",
-    stroke: "rgba(255,255,255,0.8)",
-    "stroke-width": 4
+  fill: "#FFF",
+  stroke: "rgba(255,255,255,0.8)",
+  "stroke-width": 4
 };
 var bgCloudProps = {
-    fill: "rgba(255,255,255,0.4)",
-    stroke: "rgba(255,255,255,0.5)",
-    "stroke-width": 3
+  fill: "rgba(255,255,255,0.4)",
+  stroke: "rgba(255,255,255,0.5)",
+  "stroke-width": 3
 };
 var bgCloud2Props = {
-    fill: "rgba(255,255,255,0.3)",
-    stroke: "rgba(255,255,255,0.35)",
-    "stroke-width": 2
+  fill: "rgba(255,255,255,0.3)",
+  stroke: "rgba(255,255,255,0.35)",
+  "stroke-width": 2
 };
 var bgCloud3Props = {
-    fill: "rgba(255,255,255,0.2)",
-    stroke: "rgba(255,255,255,0.25)",
-    "stroke-width": 1
+  fill: "rgba(255,255,255,0.2)",
+  stroke: "rgba(255,255,255,0.25)",
+  "stroke-width": 1
 };
 var fgCloud = new Line("fg-cloud", 150, 20, [0.775, 0.8], 300, fgCloudProps);
 var bgCloud = new Line("bg-cloud-1", 120, 30, [0.69, 0.75], 290, bgCloudProps);
@@ -438,15 +485,34 @@ btmFgCloud.init();
 btmBgCloud.init();
 btmBgCloud2.init();
 
+//Nav Menu
+var navMenu = require('./navigation-menu');
+navMenu.navigationMenu;
+navMenu.mobileNav;
+
 //Contact Form
 var contactForm = require('./contact-form');
-var contactform = contactForm;
+contactForm;
 
 //Stardrawing
 var drawStars = require('./stars');
 
 //draw the stars
 drawStars("stars", 300, 1, 4);
+
+//Toggle class
+var navButton = document.querySelector('.toggle-nav');
+var mobileNav = document.getElementById('mobile-nav');
+
+/*
+navButton.onclick = function() {
+  console.log("Clicked");
+  navButton.classList.toggle('active');
+}
+*/
+
+//bind click handlers to all mobile nav anchor links
+
 
 //parallax scrolling
 var scrollPos = 0;
@@ -481,7 +547,7 @@ function getElementOffset(el) {
   };
 }*/
 
-},{"./cloudBuilder":1,"./contact-form":2,"./stars":4}],4:[function(require,module,exports){
+},{"./cloudBuilder":1,"./contact-form":2,"./navigation-menu":3,"./stars":5}],5:[function(require,module,exports){
 "use strict";
 
 function drawStars(svgId, numOfStars, minSize, maxSize) {
@@ -517,9 +583,9 @@ function drawStars(svgId, numOfStars, minSize, maxSize) {
 
 module.exports = drawStars;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = require('./lib/axios');
-},{"./lib/axios":7}],6:[function(require,module,exports){
+},{"./lib/axios":8}],7:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -703,7 +769,7 @@ module.exports = function xhrAdapter(config) {
 };
 
 }).call(this,require('_process'))
-},{"../core/createError":13,"./../core/settle":16,"./../helpers/btoa":20,"./../helpers/buildURL":21,"./../helpers/cookies":23,"./../helpers/isURLSameOrigin":25,"./../helpers/parseHeaders":27,"./../utils":29,"_process":31}],7:[function(require,module,exports){
+},{"../core/createError":14,"./../core/settle":17,"./../helpers/btoa":21,"./../helpers/buildURL":22,"./../helpers/cookies":24,"./../helpers/isURLSameOrigin":26,"./../helpers/parseHeaders":28,"./../utils":30,"_process":32}],8:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -757,7 +823,7 @@ module.exports = axios;
 // Allow use of default import syntax in TypeScript
 module.exports.default = axios;
 
-},{"./cancel/Cancel":8,"./cancel/CancelToken":9,"./cancel/isCancel":10,"./core/Axios":11,"./defaults":18,"./helpers/bind":19,"./helpers/spread":28,"./utils":29}],8:[function(require,module,exports){
+},{"./cancel/Cancel":9,"./cancel/CancelToken":10,"./cancel/isCancel":11,"./core/Axios":12,"./defaults":19,"./helpers/bind":20,"./helpers/spread":29,"./utils":30}],9:[function(require,module,exports){
 'use strict';
 
 /**
@@ -778,7 +844,7 @@ Cancel.prototype.__CANCEL__ = true;
 
 module.exports = Cancel;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var Cancel = require('./Cancel');
@@ -837,14 +903,14 @@ CancelToken.source = function source() {
 
 module.exports = CancelToken;
 
-},{"./Cancel":8}],10:[function(require,module,exports){
+},{"./Cancel":9}],11:[function(require,module,exports){
 'use strict';
 
 module.exports = function isCancel(value) {
   return !!(value && value.__CANCEL__);
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var defaults = require('./../defaults');
@@ -925,7 +991,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = Axios;
 
-},{"./../defaults":18,"./../utils":29,"./InterceptorManager":12,"./dispatchRequest":14}],12:[function(require,module,exports){
+},{"./../defaults":19,"./../utils":30,"./InterceptorManager":13,"./dispatchRequest":15}],13:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -979,7 +1045,7 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 
 module.exports = InterceptorManager;
 
-},{"./../utils":29}],13:[function(require,module,exports){
+},{"./../utils":30}],14:[function(require,module,exports){
 'use strict';
 
 var enhanceError = require('./enhanceError');
@@ -999,7 +1065,7 @@ module.exports = function createError(message, config, code, request, response) 
   return enhanceError(error, config, code, request, response);
 };
 
-},{"./enhanceError":15}],14:[function(require,module,exports){
+},{"./enhanceError":16}],15:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1087,7 +1153,7 @@ module.exports = function dispatchRequest(config) {
   });
 };
 
-},{"../cancel/isCancel":10,"../defaults":18,"./../helpers/combineURLs":22,"./../helpers/isAbsoluteURL":24,"./../utils":29,"./transformData":17}],15:[function(require,module,exports){
+},{"../cancel/isCancel":11,"../defaults":19,"./../helpers/combineURLs":23,"./../helpers/isAbsoluteURL":25,"./../utils":30,"./transformData":18}],16:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1110,7 +1176,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
   return error;
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var createError = require('./createError');
@@ -1138,7 +1204,7 @@ module.exports = function settle(resolve, reject, response) {
   }
 };
 
-},{"./createError":13}],17:[function(require,module,exports){
+},{"./createError":14}],18:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1160,7 +1226,7 @@ module.exports = function transformData(data, headers, fns) {
   return data;
 };
 
-},{"./../utils":29}],18:[function(require,module,exports){
+},{"./../utils":30}],19:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -1260,7 +1326,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 }).call(this,require('_process'))
-},{"./adapters/http":6,"./adapters/xhr":6,"./helpers/normalizeHeaderName":26,"./utils":29,"_process":31}],19:[function(require,module,exports){
+},{"./adapters/http":7,"./adapters/xhr":7,"./helpers/normalizeHeaderName":27,"./utils":30,"_process":32}],20:[function(require,module,exports){
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -1273,7 +1339,7 @@ module.exports = function bind(fn, thisArg) {
   };
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 // btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
@@ -1311,7 +1377,7 @@ function btoa(input) {
 
 module.exports = btoa;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1379,7 +1445,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
   return url;
 };
 
-},{"./../utils":29}],22:[function(require,module,exports){
+},{"./../utils":30}],23:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1395,7 +1461,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
     : baseURL;
 };
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1450,7 +1516,7 @@ module.exports = (
   })()
 );
 
-},{"./../utils":29}],24:[function(require,module,exports){
+},{"./../utils":30}],25:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1466,7 +1532,7 @@ module.exports = function isAbsoluteURL(url) {
   return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
 };
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1536,7 +1602,7 @@ module.exports = (
   })()
 );
 
-},{"./../utils":29}],26:[function(require,module,exports){
+},{"./../utils":30}],27:[function(require,module,exports){
 'use strict';
 
 var utils = require('../utils');
@@ -1550,7 +1616,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
   });
 };
 
-},{"../utils":29}],27:[function(require,module,exports){
+},{"../utils":30}],28:[function(require,module,exports){
 'use strict';
 
 var utils = require('./../utils');
@@ -1605,7 +1671,7 @@ module.exports = function parseHeaders(headers) {
   return parsed;
 };
 
-},{"./../utils":29}],28:[function(require,module,exports){
+},{"./../utils":30}],29:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1634,7 +1700,7 @@ module.exports = function spread(callback) {
   };
 };
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 var bind = require('./helpers/bind');
@@ -1939,7 +2005,7 @@ module.exports = {
   trim: trim
 };
 
-},{"./helpers/bind":19,"is-buffer":30}],30:[function(require,module,exports){
+},{"./helpers/bind":20,"is-buffer":31}],31:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -1962,7 +2028,7 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2148,4 +2214,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[3]);
+},{}]},{},[4]);
